@@ -1,12 +1,11 @@
 const router = require('express').Router();
-const bc = require('bcryptjs');
-
+const restricted = require('../middleware/restricted-middleware.js');
 const Users = require('./users-model.js');
 
 // *****************************************
 // gets a list of all users in database
 // *****************************************
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);
