@@ -6,11 +6,12 @@ module.exports = (req, res, next) => {
 
   if (token) {
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
+      // console.log(decodedToken);
       if (err) {
         // the token is not valid
-        res.status(401).json({ you: "can't touch this!" })
+        res.status(401).json({ you: "can't touch this!" });
       } else {
-        // req.user = { department: decodedToken.department };
+        req.user = { department: decodedToken.department };
 
         next();
       }

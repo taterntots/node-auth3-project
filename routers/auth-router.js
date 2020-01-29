@@ -11,11 +11,12 @@ router.post('/register', (req, res) => {
   let credentials = req.body;
   const hash = bc.hashSync(credentials.password, 8); //hashes the password
   credentials.password = hash;
+  console.log(credentials);
 
   Users.add(credentials)
     .then(savedUser => {
       const token = generateToken(savedUser);
-
+      console.log(savedUser);
       res.status(201).json({ savedUser, token });
     })
     .catch(error => {
@@ -47,7 +48,8 @@ router.post('/login', (req, res) => {
 function generateToken(user) {
   const payload = {
     userId: user.id, //sub in payload is what the token is about
-    username: user.username
+    username: user.username,
+    department: user.department
   }
 
   const options = {
