@@ -14,6 +14,18 @@ router.get('/', restricted, onlyDepartment('sales'), (req, res) => {
       res.status(500).json({ errorMessage: 'You shall not pass!' })
     })
 })
+// *****************************************
+// deletes a user from the database
+// *****************************************
+router.delete('/:id', (req, res) => {
+  Users.remove(req.params.id)
+    .then(deleted => {
+      res.status(200).json({ success: `the user was deleted` });
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: 'There was an error deleting your project from the database' })
+    })
+})
 
 function onlyDepartment(department) {
   return function (req, res, next) {
