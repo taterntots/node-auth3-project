@@ -10,7 +10,7 @@ server.use(helmet()); //middleware that adds a layer of security to the server
 
 //endpoints
 server.get('/', (req, res) => {
-  res.send(`Welcome to the Danger Zone!`);
+  res.status(200).json({ welcome: `to the danger zone!` });
 });
 
 //routes
