@@ -6,12 +6,12 @@ describe('user-model', () => {
     await db('users').truncate();
   })
 
-  describe('insert()', () => {
+  describe('add()', () => {
     it('should add a user to the database', async () => {
       //checks that the database is empty
       const users = await db('users');
       expect(users).toHaveLength(0);
-      //adds the user to the database
+      //adds a user to the database
       await Users.add({
         username: 'samus',
         password: 'aran',
@@ -21,11 +21,11 @@ describe('user-model', () => {
       const newUsers = await db('users');
       expect(newUsers).toHaveLength(1);
     })
-    it('check the name of the inserted character', async () => {
+    it('check the name of the added user', async () => {
       //checks that the database is empty
       const users = await db('users');
       expect(users).toHaveLength(0);
-      //adds the user to the database
+      //adds a user to the database
       await Users.add({
         username: 'solid snake',
         password: 'FOXDIE',
@@ -34,6 +34,28 @@ describe('user-model', () => {
       //open the db and see that the new user is there
       const newUsers = await db('users');
       expect(newUsers[0].username).toBe('solid snake');
+    })
+  })
+
+  describe('remove()', () => {
+    it('should remove the character from the database', async () => {
+      //checks that the database is empty
+      const users = await db('users');
+      expect(users).toHaveLength(0);
+      //adds a user to the database
+      await Users.add({
+        username: 'Banjo-Kazooie',
+        password: 'jiggy',
+        department: 'sanitation'
+      })
+      //open the db and see that the new user is there
+      const newUsers = await db('users');
+      expect(newUsers).toHaveLength(1);
+      //delete the user by id
+      await Users.remove(newUsers[0].id);
+      //check that the user is gone
+      const newerUsers = await db('users');
+      expect(newerUsers).toHaveLength(0);
     })
   })
 })
