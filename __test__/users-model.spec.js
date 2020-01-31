@@ -38,7 +38,7 @@ describe('user-model', () => {
   })
 
   describe('remove()', () => {
-    it('should remove the character from the database', async () => {
+    it('should remove the user from the database', async () => {
       //checks that the database is empty
       const users = await db('users');
       expect(users).toHaveLength(0);
@@ -57,5 +57,15 @@ describe('user-model', () => {
       const newerUsers = await db('users');
       expect(newerUsers).toHaveLength(0);
     })
+    // it('should show the number of users deleted', async () => {
+    //   //adds a user to the database
+    //   await Users.add({
+    //     username: 'Banjo-Kazooie',
+    //     password: 'jiggy',
+    //     department: 'sanitation'
+    //   })
+    //   const deleted = await Users.remove(1);
+    //   expect(deleted).toBe(1);
+    // })
   })
 })
